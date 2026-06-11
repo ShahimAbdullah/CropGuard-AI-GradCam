@@ -350,7 +350,8 @@ def build_dataloaders(
     from torch.utils.data import Subset
     from copy import deepcopy
 
-    train_ds      = deepcopy(full_ds); train_ds.transform = get_train_transform()
+    train_ds      = deepcopy(full_ds); 
+    train_ds.transform = get_train_transform()
     val_test_tfm  = get_val_test_transform()
     val_ds        = deepcopy(full_ds); val_ds.transform   = val_test_tfm
     test_ds       = deepcopy(full_ds); test_ds.transform  = val_test_tfm
