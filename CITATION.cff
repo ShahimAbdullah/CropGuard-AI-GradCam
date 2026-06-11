@@ -1,0 +1,72 @@
+cff-version: 1.2.0
+message: "If you use CropGuard AI in your research, please cite it using the metadata below."
+
+title: "CropGuard AI: Explainable Deep Learning for Crop Disease Classification and Treatment Recommendation"
+version: "1.0.0"
+date-released: "2026-06-07"
+
+authors:
+  - family-names: "Abdullah"
+    given-names: "Shahim"
+    affiliation: "NASTP Institute of Information Technology"
+
+  - family-names: "Shahid"
+    given-names: "Abubakar"
+    affiliation: "NASTP Institute of Information Technology"
+
+  - family-names: "Khan"
+    given-names: "Wajid Hussain"
+    affiliation: "NASTP Institute of Information Technology"
+
+repository-code: "https://github.com/Shahim01/CropGuard-AI"
+license: "MIT"
+keywords:
+  - deep learning
+  - plant disease detection
+  - transfer learning
+  - ResNet50
+  - CBAM attention
+  - Grad-CAM
+  - variational autoencoder
+  - class imbalance
+  - agricultural AI
+  - explainable AI
+
+abstract: >
+  CropGuard AI is a deep learning system for automated crop disease classification
+  and treatment recommendation, trained on the PlantVillage dataset (10-class subset).
+  The system uses a ResNet50 backbone augmented with dual CBAM attention modules,
+  achieving ≥94.0% test accuracy and ≥0.910 Macro F1. A convolutional VAE resolves
+  the Potato Healthy class imbalance (152→664 images, FID=42.7), improving that
+  class's F1 from 0.000 to ≥0.700. Grad-CAM provides visual explanations for
+  disease localization decisions.
+
+references:
+  - type: article
+    title: "Using deep learning for image-based plant disease detection"
+    authors:
+      - family-names: "Mohanty"
+        given-names: "Sharada P"
+      - family-names: "Hughes"
+        given-names: "David P"
+      - family-names: "Salathé"
+        given-names: "Marcel"
+    journal: "Frontiers in Plant Science"
+    volume: 7
+    pages: 1419
+    year: 2016
+    doi: "10.3389/fpls.2016.01419"
+
+  - type: conference-paper
+    title: "CBAM: Convolutional Block Attention Module"
+    authors:
+      - family-names: "Woo"
+        given-names: "Sanghyun"
+      - family-names: "Park"
+        given-names: "Jongchan"
+      - family-names: "Lee"
+        given-names: "Joon-Young"
+      - family-names: "Kweon"
+        given-names: "In So"
+    collection-title: "European Conference on Computer Vision (ECCV)"
+    year: 2018

@@ -1,0 +1,64 @@
+CropGuard AI — Individual Reflection Statement
+AI335L Deep Learning Lab | Spring 2026
+Student: Abubakar Shahid | ID: S2024AI009 | Role: Data Collection & Preprocessing
+
+================================================================================
+
+What technical skill did you grow most in over the six weeks?
+
+Data engineering — specifically building preprocessing pipelines that are
+reproducible and leak-proof — grew the most for me. Before this project, I thought
+preprocessing was the boring part you do once and forget. Phase 2 taught me
+otherwise. Getting the Laplacian variance filter right (choosing threshold=50.0
+based on visual inspection of rejected images), implementing stratified splits that
+preserve class ratios, and ensuring that augmentation is applied only to training
+data and never leaks into validation or test splits — these decisions have direct
+impact on reported metrics and cannot be undone after training.
+
+I also learned to read image statistics properly. The RGB channel analysis in Phase
+2 revealed that diseased classes have elevated red-channel values (necrotic brown
+tissue) while healthy classes have elevated green-channel values. This is obvious in
+retrospect, but seeing it confirmed in data — rather than assumed — taught me to
+always plot and verify before building on assumptions.
+
+Which decision had the biggest impact, positive or negative?
+
+The positive decision with the largest impact was implementing the WeightedRandom
+Sampler for the training DataLoader in Phase 3. Before that, the model was seeing
+Potato Healthy maybe 2–3 times per epoch (152 images out of 9,000+). With the
+sampler, every class has equal expected frequency in each batch. This alone raised
+Potato Healthy F1 from near-zero to ~0.35 before VAE augmentation. The sampler is
+one line of code with enormous impact.
+
+The most costly mistake was my initial data split in Phase 2, where I used a simple
+random split instead of stratified. This resulted in Potato Healthy having zero
+examples in the test set for seed=42, which made evaluation metrics meaningless for
+that class. Shahim caught this during the Phase 3 review. The fix was two lines of
+code, but it required rerunning Phase 2 experiments entirely.
+
+Where did you get stuck longest, and what got you unstuck?
+
+Building the treatment recommendation database took far longer than expected — not
+technically, but in terms of accuracy. I initially copied treatment information from
+general agricultural websites, and Shahim flagged that some dosage recommendations
+were inconsistent across sources. I then cross-referenced three sources for each
+class: a university extension service, a professional agrochemical reference, and
+the original PlantVillage paper's supplementary materials. The final database is
+more reliable but took three days instead of one afternoon.
+
+What would you do differently if you were starting over?
+
+I would build a data validation script in Phase 1 — a function that checks class
+counts, image dimensions, file format validity, and Laplacian variance distribution
+before any training starts. We discovered data quality issues in Phase 3 that should
+have been caught in Phase 2. A 30-line validation script at the start of the project
+would have saved 6–8 hours of debugging.
+
+What surprised you about deep learning that you did not learn from coursework?
+
+How much the preprocessing pipeline determines the ceiling of model performance.
+We spent four phases building a sophisticated ResNet50+CBAM+VAE+HPO system, but the
+gains from careful preprocessing — quality filtering, proper augmentation, stratified
+splits, and weighted sampling — were comparable to switching from MLP to CNN. The
+model architecture gets the attention, but the data pipeline is where many real-world
+projects succeed or fail.

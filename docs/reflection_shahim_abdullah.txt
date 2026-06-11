@@ -1,0 +1,66 @@
+CropGuard AI — Individual Reflection Statement
+AI335L Deep Learning Lab | Spring 2026
+Student: Shahim Abdullah | ID: S2024AI013 | Role: Lead / Model Development
+
+================================================================================
+
+What technical skill did you grow most in over the six weeks?
+
+The most significant growth was in transfer learning — specifically understanding
+*why* differential learning rates work and what catastrophic forgetting actually
+looks like in practice. In Phase 4, when I ran Config B (full fine-tuning with
+backbone LR=1e-4), I saw the first-layer Gabor-like edge detectors degrade by
+epoch 20 — they literally turned into noise-like patterns. Seeing that visually
+made the theory real. Before this project, I treated pretrained weights as a
+black box you unfreeze and retrain. Now I understand them as a carefully-learned
+feature hierarchy that must be protected.
+
+I also grew substantially in reading and implementing research papers from scratch.
+CBAM (Woo et al., ECCV 2018) was the first paper I implemented end-to-end. The
+sequential channel-then-spatial design took three attempts to get right because the
+shared MLP in channel attention needs careful reshaping. After implementing it,
+I could read similar papers (SE-Net, ECA-Net) and understand the design choices
+immediately.
+
+Which decision had the biggest impact, positive or negative?
+
+Choosing ResNet50 as the backbone in Phase 3 was the most impactful positive
+decision. The jump from 63.88% (MLP) to 92.1% (ResNet50+CBAM) was dramatic, but
+the real insight was *why*: 23.5M parameters of hierarchical visual features from
+ImageNet, transferred to plant disease detection in minutes. That result — more than
+any lecture — convinced me that representation learning is the central idea in
+modern deep learning.
+
+The biggest negative decision was attempting DCGAN before VAE for the Potato
+Healthy augmentation. With 152 images, the discriminator memorised the training
+set within 30 epochs, and training collapsed. I wasted two days debugging GAN
+training dynamics before the Phase 4 report literature pointed me to VAE stability
+properties on small datasets. The lesson: match the generative model to your data
+size, not to what sounds impressive.
+
+Where did you get stuck longest, and what got you unstuck?
+
+The HPO study (Phase 4) stuck me for three days. Optuna kept returning different
+"best" configurations on repeated runs even with a fixed seed, because the
+MedianPruner was pruning trials based on wall-clock time rather than epoch count.
+I eventually traced it to the n_warmup_steps parameter — it needs to be high enough
+that early noisy results don't dominate the pruning decision. Setting
+n_warmup_steps=8 stabilised the study. The fix was three lines of code, but
+finding it required reading the Optuna pruner documentation carefully.
+
+What would you do differently if you were starting over?
+
+I would design the evaluation protocol from day one. In Phase 2, I ran the test
+set repeatedly while debugging, which violated the test-set ceremony protocol I
+understood only by Phase 5. I would also establish a common `Config` dataclass in
+Phase 1 that all notebooks share, rather than refactoring hyperparameters in Phase
+4 when the codebase was large.
+
+What surprised you about deep learning that you did not learn from coursework?
+
+The fragility of class-imbalanced evaluation. In Phase 2, the MLP appeared to have
+63% accuracy — decent for a baseline. But Potato Healthy F1 was 0.000: the model
+had learned to never predict that class, and macro-averaging with a class-zero F1
+term masked how broken this was. Macro F1 is not just a metric choice; it is an
+ethical choice. If you use accuracy alone on an imbalanced dataset, you hide failure
+modes that matter most in deployment.

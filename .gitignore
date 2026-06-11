@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual environments
+.env
+.venv
+venv/
+env/
+
+# Data (too large for git — download separately)
+data/raw/
+data/augmented/vae_potato_healthy/
+*.jpg
+*.jpeg
+*.png
+*.zip
+
+# Model checkpoints (host on HuggingFace Hub)
+checkpoints/*.pt
+checkpoints/*.pkl
+checkpoints/*.h5
+!checkpoints/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Secrets
+.env.local
+secrets.toml
+
+# Logs
+*.log
+logs/
+
+# Docker
+.dockerignore

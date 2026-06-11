@@ -1,0 +1,68 @@
+CropGuard AI — Individual Reflection Statement
+AI335L Deep Learning Lab | Spring 2026
+Student: Wajid Hussain Khan | ID: S2024AI012 | Role: Evaluation & Deployment
+
+================================================================================
+
+What technical skill did you grow most in over the six weeks?
+
+Rigorous model evaluation — specifically understanding what metrics to use, when,
+and why — grew most for me. Before Phase 5, I understood accuracy and confusion
+matrices at a surface level. The ablation study, robustness probes, calibration
+analysis, and bootstrap confidence intervals taught me that a reported number is not
+a result until you understand its variance, its conditions, and its failure modes.
+
+The Expected Calibration Error calculation was the most illuminating. Our model
+had ECE ≈ 0.048, meaning it was mildly overconfident. In an agricultural context,
+overconfident wrong predictions are dangerous — a farmer who trusts a 97% confidence
+"Healthy" prediction when the plant has early-stage disease will delay treatment.
+Computing ECE and understanding what it means in domain terms changed how I think
+about deploying any model.
+
+Which decision had the biggest impact, positive or negative?
+
+The test-set ceremony protocol — evaluating the test set exactly once, after
+freezing the Phase 4 checkpoint, with results logged immediately — was the most
+important procedural decision. In Phase 2, I had run the test set 15–20 times
+during debugging, unknowingly selecting hyperparameters that fit the test set.
+The Phase 5 ceremony reversed this practice and produced results I could genuinely
+report as generalisation performance.
+
+The most negative decision was my initial approach to the robustness analysis in
+Phase 5, where I ran FGSM without properly zeroing gradients between batches. This
+caused gradient accumulation and produced unrealistically severe degradation curves.
+The fix — adding `model.zero_grad()` after each batch — took 30 minutes to find
+but required rerunning all four probes.
+
+Where did you get stuck longest, and what got you unstuck?
+
+Streamlit deployment stuck me for two days. The app ran perfectly locally, but
+on Streamlit Community Cloud it failed with a `libGL.so.1: cannot open shared
+object file` error. The cause was OpenCV requiring a display library that is not
+present in the cloud container. The fix was switching from `opencv-python` to
+`opencv-python-headless` in requirements.txt — one package swap. Finding this
+required reading a Streamlit Community Forum thread from 2022 that described the
+exact error. The lesson: deployment errors are often infrastructure-specific, and
+searching the exact error message in community forums is faster than debugging from
+first principles.
+
+What would you do differently if you were starting over?
+
+I would write the evaluation framework first — before any model training — as a
+standalone module with unit tests. In this project, evaluation code was written
+after training, which meant each phase had slightly different evaluation logic and
+metric computation. The unified `evaluate_model` function in Phase 5 should have
+existed from Phase 2. Consistent evaluation across phases would have made the
+results table credible earlier and saved significant refactoring time.
+
+What surprised you about deep learning that you did not learn from coursework?
+
+The gap between validation performance and deployment performance. Our model
+achieved 94% accuracy on the clean PlantVillage test set, but FGSM ε=0.05 dropped
+it to 81% — a 13-point gap from an imperceptible perturbation. Real field images
+are not adversarially attacked, but they are affected by JPEG compression, variable
+lighting, and motion blur — all of which we tested in the robustness analysis and
+all of which caused measurable degradation. Coursework focuses on achieving high
+validation accuracy; deployment requires thinking about how performance degrades
+under distribution shift. That shift in thinking is the most valuable thing I took
+from this project.

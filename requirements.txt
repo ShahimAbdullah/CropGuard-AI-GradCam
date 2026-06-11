@@ -1,0 +1,48 @@
+# CropGuard AI — Requirements
+# Phase 6 Deployment | AI335L Deep Learning Lab | Spring 2026
+#
+# Install:  pip install -r requirements.txt
+# Docker:   (included in Dockerfile build)
+#
+# Pinned versions tested on Python 3.10 with CUDA 11.8 / CPU
+
+# ── Deep Learning ─────────────────────────────────────────────────────────────
+torch==2.1.2
+torchvision==0.16.2
+torchaudio==2.1.2
+
+# ── Explainability ────────────────────────────────────────────────────────────
+pytorch-grad-cam==1.4.8
+
+# ── Data & ML ─────────────────────────────────────────────────────────────────
+scikit-learn==1.4.0
+numpy==1.26.4
+pandas==2.2.0
+scipy==1.12.0
+statsmodels==0.14.1
+
+# ── Computer Vision ───────────────────────────────────────────────────────────
+opencv-python-headless==4.9.0.80
+Pillow==10.2.0
+
+# ── Visualisation ─────────────────────────────────────────────────────────────
+matplotlib==3.8.2
+seaborn==0.13.2
+plotly==5.18.0
+
+# ── Streamlit Dashboard ───────────────────────────────────────────────────────
+streamlit==1.31.0
+watchdog==3.0.0
+
+# ── HPO ───────────────────────────────────────────────────────────────────────
+optuna==3.5.0
+
+# ── FLOPs Counting ────────────────────────────────────────────────────────────
+thop==0.1.1.post2209072238
+
+# ── Model Info ────────────────────────────────────────────────────────────────
+torchinfo==1.8.0
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+tqdm==4.66.2
+python-dotenv==1.0.1
