@@ -89,7 +89,7 @@ jobs:
       - name: Smoke test container health
         run: |
           docker run -d --name cropguard_test -p 8501:8501 \
-            -e MODEL_CHECKPOINT=/app/checkpoints/best_cropguard_phase4.pt \
+            -e MODEL_CHECKPOINT=/app/checkpoints/cropguard_resnet50_cbam_phase3.pt \
             cropguard-ai:ci
           sleep 30
           docker logs cropguard_test
