@@ -290,7 +290,7 @@ def build_weighted_sampler(labels: List[int]) -> WeightedRandomSampler:
     """
     class_counts = np.bincount(labels)
     class_weights = 1.0 / (class_counts + 1e-6)
-    sample_weights = [class_weights[l] for l in labels]
+    sample_weights = sample_weights = [class_weights[lbl] for lbl in labels]
     return WeightedRandomSampler(
         weights=sample_weights,
         num_samples=len(labels),
