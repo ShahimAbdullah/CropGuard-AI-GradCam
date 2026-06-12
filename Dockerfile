@@ -51,7 +51,7 @@ USER cropguard
 ENV PYTHONPATH=/app
 ENV STREAMLIT_SERVER_PORT=8501
 ENV STREAMLIT_SERVER_HEADLESS=true
-ENV MODEL_CHECKPOINT=/app/checkpoints/best_cropguard_phase4.pt
+ENV MODEL_CHECKPOINT=/app/checkpoints/cropguard_resnet50_cbam_phase3.pt
 ENV LOG_LEVEL=INFO
 
 # Health check
