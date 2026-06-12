@@ -48,7 +48,7 @@ def load_model():
 
     try:
         ckpt_path = hf_hub_download(
-            repo_id="Shahim01/CropGuard-AI-GradCam",  # your HF repo containing the .pt file
+            repo_id="Shahim01/cropguard-resnet50-cbam",  # your HF repo containing the .pt file
             filename="cropguard_resnet50_cbam_phase3.pt",
         )
         ckpt = torch.load(ckpt_path, map_location=DEVICE)
