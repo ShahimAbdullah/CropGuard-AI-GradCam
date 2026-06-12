@@ -65,7 +65,7 @@ Upload any leaf image at [cropguard-ai-grdcam.streamlit.app](https://cropguard-a
 
 ```bash
 # Clone
-git clone https://github.com/Shahim01/CropGuard-AI.git
+git clone https://github.com/ShahimAbdullah/CropGuard-AI.git
 cd CropGuard-AI
 
 # Install dependencies (conda recommended)
@@ -79,7 +79,7 @@ pip install -r requirements.txt
 python -c "
 from huggingface_hub import hf_hub_download
 hf_hub_download('Shahim01/CropGuard-AI',
-                'best_cropguard_phase4.pt',
+                'cropguard_resnet50_cbam_phase3.pt',
                 local_dir='./checkpoints')
 "
 
