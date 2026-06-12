@@ -39,17 +39,25 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 CKPT   = Path(__file__).resolve().parents[2] / "checkpoints" / "cropguard_resnet50_cbam_phase3.pt"
 
 # ─────────────────────────────────────────────────────────────────────────────
+from huggingface_hub import hf_hub_download
+
 @st.cache_resource(show_spinner="Loading model weights…")
 def load_model():
     set_seed(42)
     model = CropGuardCNN(num_classes=NUM_CLASSES, dropout=0.38, use_cbam=True).to(DEVICE)
-    if CKPT.exists():
-        ckpt = torch.load(CKPT, map_location=DEVICE)
+
+    try:
+        ckpt_path = hf_hub_download(
+            repo_id="Shahim01/CropGuard-AI-GradCam",  # your HF repo containing the .pt file
+            filename="cropguard_resnet50_cbam_phase3.pt",
+        )
+        ckpt = torch.load(ckpt_path, map_location=DEVICE)
         state = ckpt.get("model_state", ckpt)
         model.load_state_dict(state)
         st.sidebar.markdown('<div style="color:#7fd49b;font-size:0.82rem;">✅ Checkpoint loaded</div>', unsafe_allow_html=True)
-    else:
-        st.sidebar.markdown('<div style="color:var(--gold2);font-size:0.82rem;">⚠️ Checkpoint not found — demo mode</div>', unsafe_allow_html=True)
+    except Exception as e:
+        st.sidebar.markdown(f'<div style="color:var(--gold2);font-size:0.82rem;">⚠️ Checkpoint not found — demo mode ({e})</div>', unsafe_allow_html=True)
+
     model.eval()
     return model
 
