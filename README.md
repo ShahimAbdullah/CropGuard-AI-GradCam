@@ -34,7 +34,7 @@ Deep Learning Lab, Spring 2026).
 
 ## Demo
 
-Upload any leaf image at [cropguard-ai.streamlit.app](https://cropguard-ai-gradcam.streamlit.app) to get:
+Upload any leaf image at [cropguard-ai-gradcam.streamlit.app](https://cropguard-ai-gradcam.streamlit.app) to get:
 
 - **Disease classification** with confidence score and top-3 predictions
 - **Grad-CAM heatmap** showing which leaf regions drove the prediction
