@@ -8,7 +8,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.31-red.svg)](https://streamlit.io)
 
-**[Live Demo](https://cropguard-ai-gradcam.streamlit.app)** | **[GitHub](https://github.com/Shahim01/CropGuard-AI)**
+**[Live Demo](https://cropguard-ai-grdcam.streamlit.app)** | **[GitHub](https://github.com/ShahimAbdullah/CropGuard-AI)**
 
 ---
 
@@ -34,7 +34,7 @@ Deep Learning Lab, Spring 2026).
 
 ## Demo
 
-Upload any leaf image at [cropguard-ai-gradcam.streamlit.app](https://cropguard-ai-gradcam.streamlit.app) to get:
+Upload any leaf image at [cropguard-ai-grdcam.streamlit.app](https://cropguard-ai-grdcam.streamlit.app) to get:
 
 - **Disease classification** with confidence score and top-3 predictions
 - **Grad-CAM heatmap** showing which leaf regions drove the prediction
