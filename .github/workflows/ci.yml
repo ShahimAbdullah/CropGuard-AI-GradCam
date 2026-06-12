@@ -55,7 +55,7 @@ jobs:
           pip install --upgrade pip
           pip install torch==2.1.2 torchvision==0.16.2 \
             --index-url https://download.pytorch.org/whl/cpu
-          pip install scikit-learn numpy pandas scipy Pillow \
+          pip install scikit-learn numpy numpy<2,>=1.24 scipy Pillow \
             opencv-python-headless tqdm matplotlib seaborn \
             pytest pytest-timeout
 
