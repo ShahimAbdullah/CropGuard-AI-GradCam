@@ -1,4 +1,4 @@
-name: CropGuard AI — CI
+name: CropGuard AI — CI/CD
 
 on:
   push:
@@ -7,21 +7,17 @@ on:
     branches: [main]
 
 jobs:
-  # ── Lint ────────────────────────────────────────────────────────────────────
   lint:
     name: Lint (flake8)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
-
       - name: Install flake8
         run: pip install flake8
-
       - name: Run flake8 (errors only — no style warnings)
         run: |
           flake8 src/ tests/ \
@@ -29,41 +25,59 @@ jobs:
             --select=E9,F8,W6 \
             --exclude=__pycache__,.git
 
-  # ── Unit Tests ──────────────────────────────────────────────────────────────
   test:
     name: Unit Tests (CPU)
     runs-on: ubuntu-latest
     needs: lint
-
     steps:
       - uses: actions/checkout@v4
-
       - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
-
       - name: Cache pip packages
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
           restore-keys: ${{ runner.os }}-pip-
-
       - name: Install CPU-only PyTorch + dependencies
         run: |
           pip install --upgrade pip
           pip install torch==2.1.2 torchvision==0.16.2 \
             --index-url https://download.pytorch.org/whl/cpu
-          pip install scikit-learn numpy numpy scipy Pillow \
+          pip install scikit-learn numpy scipy Pillow \
             opencv-python-headless tqdm matplotlib seaborn \
             pytest pytest-timeout
       - run: pip install -r requirements.txt
       - run: pip install --force-reinstall "numpy<2"
-
       - name: Run tests
         run: |
           python -m pytest tests/ -v \
             --tb=short \
             --timeout=120 \
             -x
+
+  docker:
+    name: Docker Build and Push
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.shahim01 }}
+          password: ${{ secrets.dckr_pat_DwP_Pl48y-UVPtxcuWZEh9pOrqY }}
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.shahim01 }}/cropguard-ai:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
