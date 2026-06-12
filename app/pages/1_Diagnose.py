@@ -47,7 +47,7 @@ def load_model():
         ckpt = torch.load(CKPT, map_location=DEVICE)
         state = ckpt.get("model_state", ckpt)
         model.load_state_dict(state)
-        st.sidebar.markdown('<div style="color:#7fd49b;font-size:0.82rem;">✅ Phase 4 checkpoint loaded</div>', unsafe_allow_html=True)
+        st.sidebar.markdown('<div style="color:#7fd49b;font-size:0.82rem;">✅ Checkpoint loaded</div>', unsafe_allow_html=True)
     else:
         st.sidebar.markdown('<div style="color:var(--gold2);font-size:0.82rem;">⚠️ Checkpoint not found — demo mode</div>', unsafe_allow_html=True)
     model.eval()
