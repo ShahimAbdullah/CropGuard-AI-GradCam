@@ -58,6 +58,8 @@ jobs:
           pip install scikit-learn numpy numpy<2,>=1.24 scipy Pillow \
             opencv-python-headless tqdm matplotlib seaborn \
             pytest pytest-timeout
+      - run: pip install -r requirements.txt
+      - run: pip install --force-reinstall "numpy<2"
 
       - name: Run tests
         run: |
