@@ -249,7 +249,7 @@ and reports mean ± std across 3 seeds — unlike most baselines that report sin
 ```bibtex
 @software{cropguard_ai_2026,
   title   = {CropGuard AI: Explainable Deep Learning for Crop Disease Classification},
-  author  = {Abdullah, Shahim and Shahid, Abubakar and Khan, Wajid Hussain},
+  author  = {Shahim Abdullah, Abubakar Shahid, Wajid Hussain Khan},
   year    = {2026},
   url     = {https://github.com/ShahimAbdullah/CropGuard-AI},
   license = {MIT}
