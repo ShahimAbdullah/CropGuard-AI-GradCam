@@ -7,6 +7,7 @@
 # Pinned versions tested on Python 3.10 with CUDA 11.8 / CPU
 
 # ── Deep Learning ─────────────────────────────────────────────────────────────
+--extra-index-url https://download.pytorch.org/whl/cpu
 torch==2.1.2
 torchvision==0.16.2
 torchaudio==2.1.2
