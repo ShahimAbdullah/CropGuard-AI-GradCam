@@ -2,13 +2,13 @@
 
 > Explainable deep learning for automated crop disease classification and treatment recommendation.
 
-[![CI](https://github.com/Shahim01/CropGuard-AI/actions/workflows/ci.yml/badge.svg)](https://github.com/Shahim01/CropGuard-AI/actions)
+[![CI](https://github.com/ShahimAbdullah/CropGuard-AI/actions/workflows/ci.yml/badge.svg)](https://github.com/ShahimAbdullah/CropGuard-AI/actions)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://python.org)
 [![PyTorch 2.1](https://img.shields.io/badge/PyTorch-2.1-orange.svg)](https://pytorch.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.31-red.svg)](https://streamlit.io)
 
-**[Live Demo](https://cropguard-ai.streamlit.app)** | **[Report (PDF)](docs/CropGuard_AI_Final_Report.pdf)** | **[GitHub](https://github.com/Shahim01/CropGuard-AI)**
+**[Live Demo](https://cropguard-ai-gradcam.streamlit.app)** | **[GitHub](https://github.com/Shahim01/CropGuard-AI)**
 
 ---
 
@@ -34,7 +34,7 @@ Deep Learning Lab, Spring 2026).
 
 ## Demo
 
-Upload any leaf image at [cropguard-ai.streamlit.app](https://cropguard-ai.streamlit.app) to get:
+Upload any leaf image at [cropguard-ai.streamlit.app](https://cropguard-ai-gradcam.streamlit.app) to get:
 
 - **Disease classification** with confidence score and top-3 predictions
 - **Grad-CAM heatmap** showing which leaf regions drove the prediction
@@ -111,7 +111,7 @@ from src.treatment import get_treatment
 
 # Load model
 model = CropGuardCNN(num_classes=NUM_CLASSES, dropout=0.38, use_cbam=True)
-ckpt  = torch.load('checkpoints/best_cropguard_phase4.pt', map_location='cpu')
+ckpt  = torch.load('checkpoints/cropguard_resnet50_cbam_phase3.pt', map_location='cpu')
 model.load_state_dict(ckpt['model_state'])
 model.eval()
 
@@ -251,7 +251,7 @@ and reports mean ± std across 3 seeds — unlike most baselines that report sin
   title   = {CropGuard AI: Explainable Deep Learning for Crop Disease Classification},
   author  = {Abdullah, Shahim and Shahid, Abubakar and Khan, Wajid Hussain},
   year    = {2026},
-  url     = {https://github.com/Shahim01/CropGuard-AI},
+  url     = {https://github.com/ShahimAbdullah/CropGuard-AI},
   license = {MIT}
 }
 ```
